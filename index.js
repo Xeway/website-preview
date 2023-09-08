@@ -50,8 +50,8 @@ const recorderConfig = {
 
     await page.setViewport({width: config.width, height: config.height});
 
-    await recorder.start(config.file);
     await page.goto(config.url);
+    await recorder.start(config.file);
 
     // sleep
     await new Promise(r => setTimeout(r, config.duration*1000));
