@@ -18,6 +18,8 @@ exec("which ffmpeg", (error, stdout, stderr) => {
 
 let config = {
   url: undefined,
+  width: 1920,
+  height: 1080,
   fps: 60,
   duration: 10,
   file: "website-preview.mp4"
@@ -46,7 +48,7 @@ const recorderConfig = {
     const page = await browser.newPage();
     const recorder = new PuppeteerScreenRecorder(page, recorderConfig);
 
-    await page.setViewport({width: 1920, height: 1080});
+    await page.setViewport({width: config.width, height: config.height});
 
     await recorder.start(config.file);
     await page.goto(config.url);
