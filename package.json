@@ -1,0 +1,24 @@
+{
+  "name": "website-preview",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xeway/website-preview.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xeway/website-preview/issues"
+  },
+  "homepage": "https://github.com/Xeway/website-preview#readme",
+  "dependencies": {
+    "puppeteer": "^21.1.1",
+    "puppeteer-screen-recorder": "^2.1.2",
+    "yargs": "^17.7.2"
+  }
+}
