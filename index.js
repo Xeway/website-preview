@@ -22,6 +22,7 @@ let config = {
   height: 1080,
   fps: 60,
   duration: 10,
+  scroll: false,
   file: "website-preview.mp4"
 }
 
@@ -53,9 +54,32 @@ const recorderConfig = {
     await page.goto(config.url);
     await recorder.start(config.file);
 
+    if (config.scroll) await autoScroll(page);
+
     // sleep
     await new Promise(r => setTimeout(r, config.duration*1000));
 
     await recorder.stop();
     await browser.close();
 })();
+
+
+async function autoScroll(page) {
+  await page.evaluate(async (config) => {
+    const scrollHeight = document.body.scrollHeight;
+    const frequency = config.duration*1000 / scrollHeight;
+
+    await new Promise((resolve, reject) => {
+      let totalHeight = 0;
+      let distance = 1*100;
+      let timer = setInterval(() => {
+        window.scrollBy(0, distance);
+        totalHeight += distance;
+        if(totalHeight >= scrollHeight){
+          clearInterval(timer);
+          resolve();
+        }
+      }, frequency*100);
+    });
+  }, config);
+}
