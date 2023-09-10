@@ -22,7 +22,7 @@ let config = {
   height: 1080,
   fps: 60,
   duration: 10,
-  scroll: false,
+  scroll: 0,
   file: "website-preview.mp4"
 }
 
@@ -45,7 +45,7 @@ const recorderConfig = {
 };
 
 (async () => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ protocolTimeout: 5*60*1000 }); // set 5 minutes timeout
     const page = await browser.newPage();
     const recorder = new PuppeteerScreenRecorder(page, recorderConfig);
 
@@ -54,7 +54,7 @@ const recorderConfig = {
     await page.goto(config.url);
     await recorder.start(config.file);
 
-    if (config.scroll) await autoScroll(page);
+    await autoScroll(page);
 
     // sleep
     await new Promise(r => setTimeout(r, config.duration*1000));
@@ -66,20 +66,20 @@ const recorderConfig = {
 
 async function autoScroll(page) {
   await page.evaluate(async (config) => {
-    const scrollHeight = document.body.scrollHeight;
-    const frequency = config.duration*1000 / scrollHeight;
+    const scrollHeight = document.body.scrollHeight * config.scroll;
+    const distance = 100; // scroll down 100px every frequency
+    const frequency = ((config.duration*1000)*distance) / scrollHeight;
 
     await new Promise((resolve, reject) => {
       let totalHeight = 0;
-      let distance = 1*100;
       let timer = setInterval(() => {
         window.scrollBy(0, distance);
         totalHeight += distance;
-        if(totalHeight >= scrollHeight){
+        if (totalHeight >= scrollHeight){
           clearInterval(timer);
           resolve();
         }
-      }, frequency*100);
+      }, frequency);
     });
   }, config);
 }
