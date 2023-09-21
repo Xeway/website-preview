@@ -23,6 +23,7 @@ let config = {
   fps: 60,
   duration: 10,
   scroll: 0,
+  scrollSpeed: 100, // default: scroll down 100px every frequency
   file: "website-preview.mp4"
 }
 
@@ -67,7 +68,7 @@ const recorderConfig = {
 async function autoScroll(page) {
   await page.evaluate(async (config) => {
     const scrollHeight = document.body.scrollHeight * config.scroll;
-    const distance = 100; // scroll down 100px every frequency
+    const distance = config.scrollSpeed;
     const frequency = ((config.duration*1000)*distance) / scrollHeight;
 
     await new Promise((resolve, reject) => {
