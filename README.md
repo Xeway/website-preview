@@ -12,4 +12,4 @@ wp --url=https://github.com/ --duration=5 --scroll=0.3 --scrollSpeed=50 --file=e
 
 Result:
 
-![Result of the command above](examples/github-example.mp4)
+https://github.com/Xeway/website-preview/assets/65366494/6a0f9749-681b-4fc3-8571-e54353a46462
