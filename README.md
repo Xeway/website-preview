@@ -7,7 +7,7 @@ A command-line tool to create a preview of a website.
 ### Example
 
 ```shell
-wp --url=https://github.com/ --duration=8 --scroll=0.3 --scrollSpeed=10 --file=examples/github-example.mp4
+wp --url=https://github.com/ --duration=5 --scroll=0.3 --scrollSpeed=50 --file=examples/github-example.mp4
 ```
 
 Result:
